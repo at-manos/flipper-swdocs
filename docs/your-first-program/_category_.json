@@ -1,8 +1,8 @@
 {
-  "label": "Your First Program",
-  "position": 2,
+  "label": "Your First Plugin",
+  "position": 6,
   "link": {
     "type": "generated-index",
-    "description": "5 minutes to learn the most important Docusaurus concepts."
+    "description": "A crash course in writing and compiling your first plugin."
   }
 }

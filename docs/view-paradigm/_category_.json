@@ -1,0 +1,8 @@
+{
+  "label": "GUI Paradigms",
+  "position": 9,
+  "link": {
+    "type": "generated-index",
+    "description": "Explores some other paradigms than the simple single viewport used in the first example."
+  }
+}
