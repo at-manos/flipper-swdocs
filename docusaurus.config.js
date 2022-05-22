@@ -54,10 +54,15 @@ const config = {
   ],
 
   themeConfig:
+    
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
+      colorMode: {
+        defaultMode: 'dark',
+        respectPrefersColorScheme: false,
+      },
       navbar: {
-        title: 'AFSD',
+        title: "AFSD",
         logo: {
           alt: 'My Site Logo',
           src: 'img/favicon.ico',
@@ -116,7 +121,7 @@ const config = {
       },
       prism: {
         theme: darkCodeTheme,
-        lightTheme: lightCodeTheme,
+        darkTheme: darkCodeTheme,
       },
     }),
 };

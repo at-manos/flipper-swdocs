@@ -10,7 +10,7 @@ Currently, our program only does this:
 2. Allocates a ViewPort
 3. Open our gui record
 4. Adds the ViewPort to the Gui
-5. Create an input queue
+5. Creates an input queue
 6. Cleans everything up and exits
 
 <br></br>
@@ -85,7 +85,7 @@ void draw_callback(Canvas* canvas, void* ctx){
 // --snip--
 int32_t box_mover_app(void* p){
     // --snip--
-    
+    ViewPort* view_port = view_port_alloc();
     view_port_draw_callback_set(view_port, draw_callback, &state_mutex);
 
     // --snip--
@@ -114,7 +114,7 @@ void input_callback(InputEvent* input, osMessageQueueId_t event_queue){
 int32_t box_mover_app(void* p){
     // --snip--
     
-    view_port_input_callback_set(view_port, input_callback, &state_mutex);
+    view_port_input_callback_set(view_port, input_callback, event_queue);
 
     // --snip--
     return 0;

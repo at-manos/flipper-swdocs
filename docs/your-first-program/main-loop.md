@@ -16,6 +16,8 @@ Let's do that, and write a simple control flow.
 ```c
 int32_t box_mover_app(void* p){
     // --snip--
+    gui_add_view_port(gui, view_port, GuiLayerFullScreen);
+
     InputEvent event;
     for(bool processing = true; processing;){
         // Pops a message off the queue and stores it in `event`.
@@ -26,8 +28,8 @@ int32_t box_mover_app(void* p){
   
         // validating input
         if(status==osOK){  
-            if(event.type=InputTypePress){
-                switch(event.input.key){
+            if(event.type==InputTypePress){
+                switch(event.key){
                     case InputKeyUp:
                         game_state->y-=2;
                         break;
@@ -41,17 +43,15 @@ int32_t box_mover_app(void* p){
                         game_state->x+=2;
                         break;
                     case InputKeyOk:
-                        return false;
-                        break;
                     case InputKeyBack:
-                        return false;
+                        processing = false;
                         break;
                 }
             }
         }
 
         view_port_update(view_port); // signals our draw callback
-        release_mutex(&state_mutex, state); // releases our mutex
+        release_mutex(&state_mutex, game_state); // releases our mutex
     }
     // --snip--
     return 0;

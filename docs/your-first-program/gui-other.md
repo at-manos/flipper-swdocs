@@ -8,7 +8,9 @@ With our game state now able to encode the information we need, and the main sig
 
 First, let's start off by including the header, `gui/gui.h`. This will give us easy tools for interfacing with the screen. 
 ```c
+#include <furi.h>
 #include <gui/gui.h>
+#include <stdlib.h>
 // -snip-
 int32_t box_mover_app(void* p){
     // --snip--
@@ -38,7 +40,7 @@ Let's disable our ViewPort, close our record, and clean up the memory we've allo
     #include <furi.h>
     #include <gui/gui.h>
     // --snip--
-    
+
     int32_t box_mover_app(void* p){
         // --snip--
 

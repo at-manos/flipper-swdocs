@@ -29,6 +29,8 @@ typedef struct {
 
 The function that will run our plugin's code will follow a simple signature, complying with the other applications:
 ```c
+#include <furi.h>
+// --snip--
 int32_t box_mover_app(void* p){
 
     return 0;
@@ -42,6 +44,7 @@ To avoid unused errors, just use `UNUSED(p)`.
 ### Initializing our state
 Now that we have our struct defined as a type, let's use it and initalize it with some data.
 ```c
+#include <furi.h>
 #include <stdlib.h>
 // -snip-
 void init_state(GameState* game_state){

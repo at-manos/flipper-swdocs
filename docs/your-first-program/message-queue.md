@@ -8,6 +8,7 @@ In order to take in input, we're going to be utilizing `osMessageQueue`, which, 
 
 ```c
 #include <input/input.h>
+#include <stdlib.h>
 // --snip--
 int32_t box_mover_app(void* p){
     osMessageQueueId_t event_queue = osMessageQueueNew(8, sizeof(InputEvent), NULL);
