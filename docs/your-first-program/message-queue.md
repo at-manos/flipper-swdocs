@@ -4,18 +4,21 @@ sidebar_position: 4
 
 # Input Queue
 
-You have just learned the **basics of Docusaurus** and made some changes to the **initial template**.
+In order to take in input, we're going to be utilizing `osMessageQueue`, which, as the name implies, allows us to create queues of messages.
 
-Docusaurus has **much more to offer**!
+```c
+#include <input/input.h>
+// --snip--
+int32_t box_mover_app(void* p){
+    osMessageQueueId_t event_queue = osMessageQueueNew(8, sizeof(InputEvent), NULL);
+    // --snip--
+    osMessageQueueDelete(event_queue); // deletes our message queue for cleanup
+    return 0;
+}
+```
+The above code creates a new event queue that will hold `InputEvent`s (from the `input` service).
 
-Have **5 more minutes**? Take a look at **[versioning](../tutorial-extras/manage-docs-versions.md)** and **[i18n](../tutorial-extras/translate-your-site.md)**.
-
-Anything **unclear** or **buggy** in this tutorial? [Please report it!](https://github.com/facebook/docusaurus/discussions/4610)
-
-## What's next?
-
-- Read the [official documentation](https://docusaurus.io/).
-- Add a custom [Design and Layout](https://docusaurus.io/docs/styling-layout)
-- Add a [search bar](https://docusaurus.io/docs/search)
-- Find inspirations in the [Docusaurus showcase](https://docusaurus.io/showcase)
-- Get involved in the [Docusaurus Community](https://docusaurus.io/community/support)
+In its parameters, we define that it will have:
+- A maximum of 8 messages in the queue
+- A message size of an InputEvent
+- Default attributes (specified by NULL)

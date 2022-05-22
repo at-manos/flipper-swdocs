@@ -6,7 +6,7 @@ sidebar_position: 3
 
 With our game state now able to encode the information we need, and the main signature set up, let's start working with the `gui` service.
 
-First, let's start off by including the header, `gui/gui.h`. This will give us tools for interfacing with the screen that are very easy to use. 
+First, let's start off by including the header, `gui/gui.h`. This will give us easy tools for interfacing with the screen. 
 ```c
 #include <gui/gui.h>
 // -snip-
@@ -46,8 +46,4 @@ Let's disable our ViewPort, close our record, and clean up the memory we've allo
     }
 ```
 
-
-:::note
-At this point, the program does nothing. This is expected behavior.
-:::
 

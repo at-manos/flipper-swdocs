@@ -57,7 +57,7 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: 'AFSWD',
+        title: 'AFSD',
         logo: {
           alt: 'My Site Logo',
           src: 'img/favicon.ico',

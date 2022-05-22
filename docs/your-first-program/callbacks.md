@@ -2,15 +2,16 @@
 sidebar_position: 5
 ---
 
-# Callbacks
+# Callbacks and Concurrency
 
-Currently, our program simply does this:
+Currently, our program only does this:
 
 1. Sets up our GameState
 2. Allocates a ViewPort
 3. Open our gui record
-4. Add the ViewPort to the Gui
-5. Cleans everything up and exits
+4. Adds the ViewPort to the Gui
+5. Create an input queue
+6. Cleans everything up and exits
 
 <br></br>
 <p align="center">
@@ -20,7 +21,7 @@ No drawing to the screen, and no input processing.
 **Let's change that with callbacks!**
 </p>
 
-### Callback Methods
+## Callback Methods
 
 The `gui` service provides us with two nice methods for handling drawing and input.
 
@@ -32,22 +33,21 @@ Let's look at their full declarations:
 void view_port_draw_callback_set(ViewPort* view_port, ViewPortDrawCallback callback, void* context);
 void view_port_input_callback_set(ViewPort* view_port, ViewPortInputCallback callback, void* context);
 ```
-As you might guess, `view_port_draw_callback_set` sets the callback function that is called whenever a new frame is signalled to be drawn.
-
-And `view_port_input_callback_set` sets the callback function that is called whenever input is recieved.
+As you might guess, `view_port_draw_callback_set` sets the function that is called whenever a new frame is signalled to be drawn.
+And `view_port_input_callback_set` sets the function that is called whenever input is recieved, like a button press.
 
 
 So, what would we like to do with the callbacks?
-- Draw: Draw a box from our GameState's values
+- Draw: Draw a box using our GameState's x and y values
 - Input: Handle input from the keys
   
 Let's tackle the draw callback first.
 
 ### Draw Callback
 
-Callbacks pose a problem because they run on separate threads than our main app. This means that accessing our GameState could result in a [race condition](https://www.techtarget.com/searchstorage/definition/race-condition) between our callbacks and main loop.
+Callbacks pose a problem because they run on a separate thread from our main app. Since we need to access our GameState in the callback, this could result in a [race condition](https://www.techtarget.com/searchstorage/definition/race-condition) between our callbacks and main loop.
 
-Let's fix that by using [mutex](https://en.wikipedia.org/wiki/Lock_(computer_science)) to wrap our GameState as a blocking resource, only allowing one thread access at a time.
+Let's fix that by using [mutex](https://en.wikipedia.org/wiki/Lock_(computer_science)) to wrap our GameState in a blocking resource, only allowing one thread access at a time.
 
 ```c
     // --snip--
@@ -78,7 +78,7 @@ void draw_callback(Canvas* canvas, void* ctx){
         return;
     }
 
-    canvas_draw_dot(canvas, game_state->x, game_state->y); // Draw a pixel on the screen at game_state->x,y
+    canvas_draw_box(canvas, game_state->x, game_state->y, 4, 4); // Draw a box on the screen at game_state->x,y
 
     release_mutex((ValueMutex*)ctx, game_state); // Release our mutex to be used by other threads.
 }
@@ -86,15 +86,41 @@ void draw_callback(Canvas* canvas, void* ctx){
 int32_t box_mover_app(void* p){
     // --snip--
     
-    view_port_draw_calback_set(view_port, draw_callback, &state_mutex);
+    view_port_draw_callback_set(view_port, draw_callback, &state_mutex);
 
     // --snip--
     return 0;
 }
 ```
 
-Now our `ViewPort` is set up with a drawing callback! Next, we need to implement 
+Now our `ViewPort` is set up with a drawing callback! Next, we need to implement an input callback.
 
-:::note
-At this point, the program does nothing. This is expected behavior.
-:::
+### Input Callback
+
+The input callback for our program is pretty simple.
+
+All we want it to do is:
+- Read an input event
+- Place it on the message queue to be read later, in our main loop.
+
+So, let's implement that with `osMessageQueue`:
+```c
+// --snip--
+void input_callback(InputEvent* input, osMessageQueueId_t event_queue){
+    // Puts input onto event queue with priority 0, and waits until completion. 
+    osMessageQueuePut(event_queue, input, 0, osWaitForever); 
+}
+// --snip--
+int32_t box_mover_app(void* p){
+    // --snip--
+    
+    view_port_input_callback_set(view_port, input_callback, &state_mutex);
+
+    // --snip--
+    return 0;
+}
+
+```
+
+Our input callback is now done, and ready for us to read those messages in our main loop.
+

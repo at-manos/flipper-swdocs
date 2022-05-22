@@ -26,6 +26,3 @@ This tutorial will cover:
 
 This beginner tutorial was modelled largely off of [DroomOne](https://www.github.com/DroomOne)'s plugin tutorial, which is how I started to learn. 
 
-:::note 
-I use VSCode as my IDE as you may see throughout these pages. You can use any you like, though.
-:::
