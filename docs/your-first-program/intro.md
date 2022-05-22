@@ -14,7 +14,7 @@ sidebar_position: 0
 ## Scope
 
 This tutorial will cover:
-- A simple GUI+ViewPort program paradigm
+- A simple GUI+ViewPort application paradigm
 - Basic interface with the `gui` and `input` services
 - Basic queues using `osMessageQueue`
 - Acquiring and working with user input
