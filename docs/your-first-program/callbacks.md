@@ -33,8 +33,8 @@ Let's look at their full declarations:
 void view_port_draw_callback_set(ViewPort* view_port, ViewPortDrawCallback callback, void* context);
 void view_port_input_callback_set(ViewPort* view_port, ViewPortInputCallback callback, void* context);
 ```
-As you might guess, `view_port_draw_callback_set` sets the function that is called whenever a new frame is signalled to be drawn.
-And `view_port_input_callback_set` sets the function that is called whenever input is recieved, like a button press.
+As you might guess, `view_port_draw_callback_set` sets the function that is called whenever **a new frame is signalled to be drawn.**
+And `view_port_input_callback_set` sets the function that is called whenever **input is recieved, like a button press.**
 
 
 So, what would we like to do with the callbacks?

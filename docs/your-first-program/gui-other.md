@@ -35,6 +35,10 @@ We can add our newly created `ViewPort` to it.
 
 Let's disable our ViewPort, close our record, and clean up the memory we've allocated.
 ```c
+    #include <furi.h>
+    #include <gui/gui.h>
+    // --snip--
+    
     int32_t box_mover_app(void* p){
         // --snip--
 
