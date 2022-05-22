@@ -15,7 +15,7 @@ The typical choice for firmware is the [official firmware](https://www.github.co
 2. Navigate into the directory you would like to store your local copy
 3. Run the following command:
    ```bash
-        git clone https://www.github.com/flipperdevices/flipperzero-firmware.git .
+        git clone https://www.github.com/flipperdevices/flipperzero-firmware.git
    ```
 
 **Voila! You now have the firmware source on your computer.**
