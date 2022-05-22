@@ -30,7 +30,7 @@ typedef struct {
 The function that will run our plugin's code will follow a simple signature, complying with the other applications:
 ```c
 #include <furi.h>
-// --snip--
+
 int32_t box_mover_app(void* p){
 
     return 0;
@@ -38,7 +38,7 @@ int32_t box_mover_app(void* p){
 ```
 This is how all applications are declared within Flipper Zero firmware, and it is common practice to append the name with `_app`.
 :::info
-To avoid unused errors, just use `UNUSED(p)`.
+To avoid unused errors, call `UNUSED(p)`.
 :::
 
 ### Initializing our state

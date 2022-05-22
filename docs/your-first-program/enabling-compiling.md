@@ -17,7 +17,7 @@ Let's add it right under the snake plugin.
     extern int32_t box_mover_app(void* p);
 ```
 
-Great! Just one more place in this file,
+Great! Just one more place in this file, filling out the metadata for our application.
 
 
 ```c
