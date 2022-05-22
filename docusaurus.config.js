@@ -6,7 +6,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: "atmanos' flipper sw docs",
+  title: "atmanos' flipper software docs",
   tagline: 'because someone needs to!',
   url: 'https://your-docusaurus-test-site.com',
   baseUrl: '/',
@@ -123,8 +123,8 @@ const config = {
         copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
       },
       prism: {
-        theme: lightCodeTheme,
-        darkTheme: darkCodeTheme,
+        theme: darkCodeTheme,
+        lightTheme: lightCodeTheme,
       },
     }),
 };
