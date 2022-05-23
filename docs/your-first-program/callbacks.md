@@ -46,6 +46,7 @@ Conceptually, the callbacks work like this:
     - This is passed to our functions as a void pointer, and we have to cast it back to the type we need.
 
 
+
 So, what would we like to do with the callbacks?
 - Draw: Draw a box using our GameState's x and y values
 - Input: Handle input from the keys
@@ -56,7 +57,7 @@ Let's tackle the draw callback first.
 
 Callbacks pose a problem because they run on a separate thread from our main app. Since we need to access our GameState in the callback, this could result in a [race condition](https://www.techtarget.com/searchstorage/definition/race-condition) between our callbacks and main loop.
 
-Let's fix that by using [mutex](https://en.wikipedia.org/wiki/Lock_(computer_science)) to wrap our GameState in a blocking resource, only allowing one thread access at a time.
+Let's fix that by using [mutex](https://en.wikipedia.org/wiki/Lock_\(computer_science\)) to wrap our GameState in a blocking resource, only allowing one thread access at a time.
 
 ```c
     // --snip--
@@ -78,6 +79,8 @@ int32_t box_mover_app(void* p){
 ```
 
 Great! Now our GameState can be accessed by multiple threads without having to worry. Let's implement a simple draw callback now.
+
+Our draw callback must conform to the parameters `(Canvas*, voi)
 
 ```c
 // --snip--
