@@ -80,7 +80,9 @@ int32_t box_mover_app(void* p){
 
 Great! Now our GameState can be accessed by multiple threads without having to worry. Let's implement a simple draw callback now.
 
-Our draw callback must conform to the parameters `(Canvas*, voi)
+Our draw callback must conform to the following parameters:
+- A pointer to a Canvas
+- A void pointer to the data we passed in `view_port_draw_callback_set`
 
 ```c
 // --snip--
@@ -109,13 +111,16 @@ Now our `ViewPort` is set up with a drawing callback! Next, we need to implement
 
 ### Input Callback
 
-The input callback for our program is pretty simple.
 
-All we want it to do is:
+Our input callback must conform to the following parameters:
+- A pointer to an InputEvent
+- A void pointer to the data we passed in `view_port_draw_callback_set`
+
+The goal for our input callback is pretty simple. All we want it to do is:
 - Read an input event
 - Place it on the message queue to be read later, in our main loop.
 
-So, let's implement that with `osMessageQueue`:
+So, let's implement that with `osMessageQueue`.
 ```c
 // --snip--
 void input_callback(InputEvent* input, osMessageQueueId_t event_queue){
