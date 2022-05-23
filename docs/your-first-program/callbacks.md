@@ -37,6 +37,15 @@ As you might guess, `view_port_draw_callback_set` sets the function that is call
 And `view_port_input_callback_set` sets the function that is called whenever **input is recieved**, like a button press.
 
 
+Conceptually, the callbacks work like this:
+- We define a function we want to be called whenever an event occurs
+- We use our \*_callback_set functions, and fill it out with the general form:
+  - A pointer to our ViewPort instance
+  - Our callback method
+  - The context we want to have access to in our callback functions
+    - This is passed to our functions as a void pointer, and we have to cast it back to the type we need.
+
+
 So, what would we like to do with the callbacks?
 - Draw: Draw a box using our GameState's x and y values
 - Input: Handle input from the keys
@@ -118,6 +127,7 @@ int32_t box_mover_app(void* p){
 
     // --snip--
     return 0;
+
 }
 
 ```
