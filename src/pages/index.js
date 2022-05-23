@@ -9,7 +9,7 @@ import HomepageFeatures from '@site/src/components/HomepageFeatures';
 function HomepageHeader() {
   const {siteConfig} = useDocusaurusContext();
   return (
-    <header id='mainGrad' style={ {height: '100%'}} className={clsx('hero hero--primary', styles.heroBanner) }>
+    <header id='mainGrad' style={ {height: '100%'}} className={clsx('hero mainGrad hero--primary', styles.heroBanner) }>
       <div className="container" >
         <h1 className="hero__title">{siteConfig.title}</h1>
         <p className="hero__subtitle">{siteConfig.tagline}</p>
