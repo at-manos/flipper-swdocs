@@ -51,7 +51,7 @@ Let's fix that by using [mutex](https://en.wikipedia.org/wiki/Lock_(computer_sci
 
 ```c
     // --snip--
-    int32_t box_mover_app(void* p){
+int32_t box_mover_app(void* p){
     UNUSED(p);
 
     GameState* game_state = malloc(sizeof(GameState));
