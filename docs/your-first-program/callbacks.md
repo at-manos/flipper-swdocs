@@ -82,7 +82,7 @@ Great! Now our GameState can be accessed by multiple threads without having to w
 
 Our draw callback must conform to the following parameters:
 - A pointer to a Canvas
-- A void pointer to the data we passed in `view_port_draw_callback_set`
+- A pointer to the data we passed in `view_port_draw_callback_set`
 
 ```c
 // --snip--
@@ -114,7 +114,7 @@ Now our `ViewPort` is set up with a drawing callback! Next, we need to implement
 
 Our input callback must conform to the following parameters:
 - A pointer to an InputEvent
-- A void pointer to the data we passed in `view_port_draw_callback_set`
+- A pointer to the data we passed in `view_port_input_callback_set`
 
 The goal for our input callback is pretty simple. All we want it to do is:
 - Read an input event
