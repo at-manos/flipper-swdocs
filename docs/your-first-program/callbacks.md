@@ -48,8 +48,8 @@ Conceptually, the callbacks work like this:
 
 
 So, what would we like to do with the callbacks?
-- Draw: Draw a box using our GameState's x and y values
-- Input: Handle input from the keys
+- Draw: Draw a box using our GameState's x and y values as an anchor point
+- Input: Put key presses onto our input queue
   
 Let's tackle the draw callback first.
 
