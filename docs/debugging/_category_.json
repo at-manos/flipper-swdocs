@@ -1,0 +1,8 @@
+{
+  "label": "Debugging",
+  "position": 7,
+  "link": {
+    "type": "generated-index",
+    "description": "An overview of some of the basic concepts when working with the Flipper Zero."
+  }
+}
