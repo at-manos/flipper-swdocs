@@ -20,7 +20,7 @@ Before getting into any programming, I think it's important to get a quick glanc
   - Seen by the end-user
   - Includes plugins
   <!-- - change dis -->
-  - Examples: Wav player, infrared, tetris, everything in the applications menu <span><img src="/img/buttons/ok.svg" alt="Ok" class="flipper-button"></img></span>
+  - Examples: Wav player, infrared, tetris, everything in the applications menu <span><object id="svg1" data="/img/buttons/ok.svg" type="image/svg+xml"></object></span>
 - Furi
   - Originally stood for "Flipper Universal Registry Implementation", but has lost its meaning.
     - Now "officially" just a shortening of フリッパー, <i>**furi**ppa</i>, as per Aleksandr Kutuzov.
