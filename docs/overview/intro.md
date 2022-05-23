@@ -4,7 +4,7 @@ sidebar_position: 6
 
 # Software Diagram
 
-Before getting into any programming, I think it's important to get a quick glance at some terms you'll be encountering.
+Before getting into any programming, I think it's important to get a quick glance at some of the terms you'll be encountering.
 
 
 

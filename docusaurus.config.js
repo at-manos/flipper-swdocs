@@ -51,7 +51,20 @@ const config = {
         },
       }),
     ],
+    
   ],
+  // plugins: [
+  //   [
+  //     '@docusaurus/plugin-content-docs',
+  //     {
+  //       id: 'community',
+  //       path: 'community',
+  //       routeBasePath: 'community',
+  //       sidebarPath: require.resolve('./sidebars.js'),
+  //       // ... other options
+  //     },
+  //   ],
+  // ],
 
   themeConfig:
     
