@@ -18,7 +18,7 @@ To make our lives easier, let's define all the information we need to encode for
 
 Pretty simple! We'll do that by declaring a `GameState` struct that holds that information.
 
-```c
+```c title="box_mover/box_mover.c"
 typedef struct {
     int x;
     int y;
@@ -30,6 +30,11 @@ typedef struct {
 The function that will run our plugin's code will follow a simple signature, complying with the other applications:
 ```c
 #include <furi.h>
+
+typedef struct {
+    int x;
+    int y;
+} GameState;
 
 int32_t box_mover_app(void* p){
 
@@ -43,7 +48,9 @@ To avoid unused errors, call `UNUSED(p)`.
 
 ### Initializing our state
 Now that we have our struct defined as a type, let's use it and initalize it with some data.
-```c
+
+
+```c 
 #include <furi.h>
 #include <stdlib.h>
 // -snip-
