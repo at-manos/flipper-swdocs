@@ -41,7 +41,7 @@ Conceptually, the callbacks work like this:
 - We define a function we want to be called whenever an event occurs
 - We use our \*_callback_set functions, and fill it out with the general form:
   - A pointer to our ViewPort instance
-  - Our callback method
+  - Our callback function
   - The context we want to have access to in our callback functions
     - This is passed to our functions as a void pointer, and we have to cast it back to the type we need.
 
