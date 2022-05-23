@@ -28,6 +28,9 @@ There are many ways to see the serial line that your flipper is on, but the easi
 
 On my device, it seems to be on `/dev/ttyACM0`.
 
+On Windows, it will typically be `COM`\*
+On \*nix, it will typically be `/dev/tty`\*
+
 ## Interfacing with the CLI
 
 ### Windows
@@ -36,15 +39,19 @@ For Windows systems, I recommend [PuTTY](https://www.putty.org) to interface wit
 
 To connect to your serial line, select "Serial" under connection type, and type in the location.
 
-
 <p align='center'>
-<img src="/img/log.gif"></img>
+<img src="/img/windows_putty.gif"></img>
 </p>
+
 
 Now, just enter `log` and there you go!
 
 ### *nix
 
 There are many tools, but I would recommend [PuTTY](https://www.putty.org), or `screen`, a popular utility for linux.
+
+<p align='center'>
+<img src="/img/log.gif"></img>
+</p>
 
 Once inside the serial connection, type `log`, and now you can see your logs! 
