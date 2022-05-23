@@ -14,6 +14,10 @@ To do this, we navigate to Applications->Settings->Log Level
 
 From here, you can set the log level of your flipper device.
 
+<p align='center'>
+<img src="/img/set_loglevel.gif"></img>
+</p>
+
 
 Now that you have your devices log level set up, we need to connect to the flipper over a serial connection.
 
