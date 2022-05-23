@@ -22,7 +22,7 @@ Each level supersedes the previous, meaning that at a `warning` log level, you w
 
 ## Printing logs
 
-To log errors and information to our serial bus, we are provided with 5 macros by furi's `log.h` header.
+To log errors and information to our serial line, we are provided with 5 macros by furi's `log.h` header.
 
 These are:
 
