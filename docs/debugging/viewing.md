@@ -10,7 +10,7 @@ sidebar_position: 10
 <!-- rx -->
 To recieve the logs provided on these levels, we need to set the device's log level in the settings.
 
-To do this, we navigate to Applications->Settings->Log Level
+To do this, we navigate to Applications->Settings->System
 
 From here, you can set the log level of your flipper device.
 
