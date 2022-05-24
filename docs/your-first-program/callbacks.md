@@ -106,6 +106,9 @@ int32_t box_mover_app(void* p){
     return 0;
 }
 ```
+:::tip Experiment!
+Experiment with other canvas_draw functions like `canvas_draw_str`, `canvas_draw_circle`, and many more! (see `canvas.h`)
+:::
 
 Now our `ViewPort` is set up with a drawing callback! Next, we need to implement an input callback.
 
