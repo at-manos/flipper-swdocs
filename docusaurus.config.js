@@ -91,11 +91,6 @@ const config = {
             label: 'Tutorial',
           },
           {to: '/info-center/overview/intro', label: 'Information Center', position: 'left'},
-          {
-            href: 'https://github.com/at-manos',
-            label: 'GitHub',
-            position: 'right',
-          },
           {to: '/blog', label: 'Blog', position: 'left'},
           {
             href: 'https://github.com/at-manos',
