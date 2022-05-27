@@ -112,6 +112,8 @@ Experiment with other canvas_draw functions like `canvas_draw_str`, `canvas_draw
 
 Now our `ViewPort` is set up with a drawing callback! Next, we need to implement an input callback.
 
+
+
 ### Input Callback
 
 
