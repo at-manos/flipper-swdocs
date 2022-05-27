@@ -2,10 +2,11 @@
 sidebar_position: 7
 ---
 
-# Docker
+# Compiling
 
-Instead of installing the toolchain manually, we are provided with a docker configuration, and this website will utilize it for ease of use.
+## Docker
 
+Instead of installing the toolchain manually, we are provided with a docker configuration, so we can use that!
 
 
 
@@ -45,7 +46,17 @@ make[1]: Leaving directory '/project/firmware'
 2022-05-22 03:51:34,148 [INFO] Firmware binaries can be found at:
       dist/f7
    ```
-   
+
+
+<!-- ## Brew
+
+If you're on macOS, you might be already familiar with [Brew](https://brew.sh/). The maintainers at Flipper provide a brewfile in the repository, so we can take advantage of that and get the necessary utilities from the brewfile.
+
+Let's first install the necessary utilities:
+```sh
+brew bundle --verbose
+``` -->
+
    
 ### Your .dfu to flash is now located in `dist/f7/flipper-z-{target}-full-{suffix}.dfu`
 
