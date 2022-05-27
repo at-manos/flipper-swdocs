@@ -14,11 +14,6 @@
 
 }
 
-.mainGrad {
-  height: 75vh;
-  background: rgb(255,162,0);
-  background: linear-gradient(165deg, rgba(255,162,0,1) 0%, rgba(71,56,136,1) 100%);
-}
 
 @media screen and (max-width: 996px) {
   .heroBanner {

@@ -6,15 +6,29 @@ sidebar_position: 4
 
 In order to take in input, we're going to be utilizing `osMessageQueue`, which, as the name implies, allows us to create queues of messages.
 
+For our `BoxMover` struct, all we need to do is declare an `osMessageQueueId_t`, which will be an ID for our queue, so we can reference it later.
 ```c
-#include <input/input.h>
-#include <stdlib.h>
-// --snip--
-int32_t box_mover_app(void* p){
-    osMessageQueueId_t event_queue = osMessageQueueNew(8, sizeof(InputEvent), NULL);
+typedef struct {
+    BoxMoverModel* model;
+
+    osMessageQueueId_t event_queue;
+
+    ViewPort* view_port;
+    Gui* gui;
+
+} BoxMover;
+```
+
+Now, let's actually create a queue inside of our `box_mover_alloc` function.
+
+```c
+BoxMover* box_mover_alloc(){
     // --snip--
-    osMessageQueueDelete(event_queue); // deletes our message queue for cleanup
-    return 0;
+    instance->gui = furi_record_open("gui");
+
+    instance->event_queue = osMessageQueueNew(8, sizeof(InputEvent), NULL);
+    
+    return instance;
 }
 ```
 The above code creates a new event queue that will hold `InputEvent`s (from the `input` service).
@@ -23,3 +37,7 @@ In its parameters, we define that it will have:
 - A maximum of 8 messages in the queue
 - A message size of an InputEvent
 - Default attributes (specified by NULL)
+
+:::info Unsure of your code?
+Check out the [code so far](https://github.com/at-manos/flipper-swdocs/tree/main/docs/your-first-program/code-so-far/input-queue) for this section!
+:::

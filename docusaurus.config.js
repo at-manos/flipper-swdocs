@@ -56,18 +56,18 @@ const config = {
     ],
     
   ],
-  // plugins: [
-  //   [
-  //     '@docusaurus/plugin-content-docs',
-  //     {
-  //       id: 'community',
-  //       path: 'community',
-  //       routeBasePath: 'community',
-  //       sidebarPath: require.resolve('./sidebars.js'),
-  //       // ... other options
-  //     },
-  //   ],
-  // ],
+  plugins: [
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'info-center',
+        path: 'info-center',
+        routeBasePath: 'info-center',
+        sidebarPath: require.resolve('./sidebars.js'),
+        // ... other options
+      },
+    ],
+  ],
 
   themeConfig:
     
@@ -89,6 +89,12 @@ const config = {
             docId: 'overview/intro',
             position: 'left',
             label: 'Tutorial',
+          },
+          {to: '/info-center/overview/intro', label: 'Information Center', position: 'left'},
+          {
+            href: 'https://github.com/at-manos',
+            label: 'GitHub',
+            position: 'right',
           },
           {to: '/blog', label: 'Blog', position: 'left'},
           {

@@ -27,7 +27,3 @@ This tutorial will cover:
 - A Flipper Zero
 - Basic knowledge of C or something close.
 - An IDE (I use VSCode)
-## Acknowledgements
-
-This beginner tutorial was modelled largely off of [DroomOne](https://www.github.com/DroomOne)'s plugin tutorial, which is how I started to learn. 
-
