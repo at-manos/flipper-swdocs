@@ -62,4 +62,4 @@ endif
 
 # Compiling
 
-To compile your code, follow [these instructions in the setup](/docs/environment-setup/docker-setup)
+To compile your code, follow [these instructions in the setup](/docs/environment-setup/compiling)
