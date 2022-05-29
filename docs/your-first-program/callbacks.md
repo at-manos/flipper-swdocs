@@ -57,7 +57,7 @@ Before we implement them, we need to go over something inherent about callbacks:
 
 Callbacks pose a problem because they run on a separate thread from our main app. Since we need to access our BoxMover in the callback, this could result in a [race condition](https://www.techtarget.com/searchstorage/definition/race-condition) between our callbacks and main loop.
 
-Let's fix that by using [mutex](https://en.wikipedia.org/wiki/Lock_\(computer_science\)) to add a mutex object to our `BoxMover`. This will, in effect, allow it to be used as a blocking resource, only allowing one thread access at a time.
+Let's fix that by adding a [mutex](https://en.wikipedia.org/wiki/Lock_\(computer_science\)) ID to our `BoxMover` struct. This will, in effect, allow it to be used as a blocking resource, only allowing one thread access at a time. We just need to make sure we acquire and release it whenever we deal with our struct.
 
 
 We'll do this by utilizing `osMutex`, an API layer that interfaces with the RTOS kernel. This is best current practice and [deprecates](https://github.com/flipperdevices/flipperzero-firmware/pull/1202#discussion_r867040160) `ValueMutex`, which you may see in some applications.
