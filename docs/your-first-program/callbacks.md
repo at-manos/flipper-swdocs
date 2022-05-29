@@ -51,7 +51,7 @@ So, what would we like to do with the callbacks?
 - Draw: Draw a box using our model's x and y values as an anchor point
 - Input: Put key presses onto our input queue
   
-Let's tackle the draw callback first.
+Before we implement them, we need to go over something inherent about callbacks: threads.
 
 ## Tackling Concurrency Issues Using Mutex
 
