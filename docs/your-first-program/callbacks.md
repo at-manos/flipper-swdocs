@@ -60,7 +60,7 @@ Callbacks pose a problem because they run on a separate thread from our main app
 Let's fix that by adding a [mutex](https://en.wikipedia.org/wiki/Lock_\(computer_science\)) ID to our `BoxMover` struct. This will, in effect, allow it to be used as a blocking resource, only allowing one thread access at a time. We just need to make sure we acquire and release it whenever we deal with our struct.
 
 
-We'll do this by utilizing `osMutex`, an API layer that interfaces with the RTOS kernel. This is best current practice and [deprecates](https://github.com/flipperdevices/flipperzero-firmware/pull/1202#discussion_r867040160) `ValueMutex`, which you may see in some applications.
+We'll do this by utilizing `osMutex`, an API layer that interfaces with the RTOS kernel. This is best current practice and [is set to phase out](https://github.com/flipperdevices/flipperzero-firmware/pull/1202#discussion_r867040160) `ValueMutex`, which you may see in some applications.
 
 
 Let's add an ID to our mutex in our `BoxMover` struct.
