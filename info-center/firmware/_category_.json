@@ -1,0 +1,8 @@
+{
+  "label": "Firmware",
+  "position": 4,
+  "link": {
+    "type": "generated-index",
+    "description": "An overview of the firmware options on the Flipper Zero"
+  }
+}
