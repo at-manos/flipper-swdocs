@@ -139,12 +139,13 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} atmanos.`,
       },
       prism: {
         theme: darkCodeTheme,
         darkTheme: darkCodeTheme,
       },
+      metadata: [{name: 'google-site-verification', content: 'VCRE_rxVCcRfMhqhsxv8yZhOGUcQ7xsG0HE7StVfYEM'}]
     }),
 };
 
