@@ -38,6 +38,18 @@ In its parameters, we define that it will have:
 - A message size of an InputEvent
 - Default attributes (specified by NULL)
 
+Let's remember to free this new input queue in `box_mover_free`:
+
+```c
+void box_mover_free(BoxMover* instance){
+    // --snip--
+    osMessageQueueDelete(instance->event_queue);
+
+    free(instance->model);
+    free(instance);
+}
+```
+
 :::info Unsure of your code?
 Check out the [code so far](https://github.com/at-manos/flipper-swdocs/tree/main/docs/your-first-program/code-so-far/input-queue) for this section!
 :::

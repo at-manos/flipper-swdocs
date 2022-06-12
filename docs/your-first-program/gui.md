@@ -49,7 +49,7 @@ In our freeing function, let's disable our ViewPort, close our record, and clean
 ```c
 void box_mover_free(BoxMover* instance){
     view_port_enabled_set(instance->view_port, false); // Disables our ViewPort
-    gui_remove_view_port(instance->gui, view_port); // Removes our ViewPort from the Gui 
+    gui_remove_view_port(instance->gui, instance->view_port); // Removes our ViewPort from the Gui 
     furi_record_close("gui"); // Closes the gui record
     view_port_free(instance->view_port); // Frees memory allocated by view_port_alloc
 

@@ -118,7 +118,7 @@ void draw_callback(Canvas* canvas, void* ctx){
 
     canvas_draw_box(canvas, box_mover->model->x, box_mover->model->y, 4, 4); // Draw a box on the screen
 
-    osReleaseMutex(box_mover->model_mutex);
+    osMutexRelease(box_mover->model_mutex);
 }
 ```
 Here, we try to acquire our mutex for however long it takes (denoted by osWaitForever), and is wrapped in a `furi_check`, which will crash the program if there is an error with the mutex.
