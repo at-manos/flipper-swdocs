@@ -40,7 +40,7 @@ export default function Home() {
   return (
     <Layout
       title={`${siteConfig.title}`}
-      description="Flipper Zero Software Documentation">
+      description="Documentation for software on the Flipper Zero platform. Learn how to program applications, debug, and more through approachable tutorials and simple explanations.">
       <HomepageHeader  />
       {/* <HomepageFeatures /> */}
 
