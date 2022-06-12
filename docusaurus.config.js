@@ -82,6 +82,8 @@ const config = {
         logo: {
           alt: 'My Site Logo',
           src: 'img/favicon.ico',
+          height: 32,
+          width: 32
         },
         items: [
           {
