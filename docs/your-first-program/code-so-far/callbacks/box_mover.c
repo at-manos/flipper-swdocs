@@ -29,7 +29,7 @@ void draw_callback(Canvas* canvas, void* ctx){
     osMutexRelease(box_mover->model_mutex);
 }
 
-void input_callback(InputEvent* input, osMessageQueueId_t event_queue){
+void input_callback(InputEvent* input, void* ctx){
     BoxMover* box_mover = ctx;
     // Puts input onto event queue with priority 0, and waits until completion. 
     osMessageQueuePut(box_mover->event_queue, input, 0, osWaitForever); 
