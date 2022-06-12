@@ -1,11 +1,10 @@
 # atmanos' flipper software docs
 
-This is a website to document the things I learn while developing for the flipper zero platform.
+> A website to document the things I learn while developing for the flipper zero platform.
 
 
 ## Contributing
 
-> tbd
+See [`CONTRIBUTING.md`](/CONTRIBUTING.md) for a guide on how to contribute to this project.
 
 
-This website is built using [Docusaurus 2](https://docusaurus.io/), a modern static website generator.
