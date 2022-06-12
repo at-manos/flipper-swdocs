@@ -145,7 +145,7 @@ const config = {
         theme: darkCodeTheme,
         darkTheme: darkCodeTheme,
       },
-      metadata: [{name: 'google-site-verification', content: 'VCRE_rxVCcRfMhqhsxv8yZhOGUcQ7xsG0HE7StVfYEM'}]
+      metadata: [{name: 'google-site-verification', content: 'eN_xlQ-S-S8kHm0qs9mj2N_hruK2J9avYkhkcd0VXMo'}]
     }),
 };
 
