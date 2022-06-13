@@ -100,7 +100,7 @@ const config = {
             position: 'right',
           },
           {
-            href: 'https://github.com/at-manos',
+            href: 'https://github.com/at-manos/flipper-swdocs',
             label: 'GitHub',
             position: 'right',
           },
