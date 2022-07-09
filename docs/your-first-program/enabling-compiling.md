@@ -4,61 +4,65 @@ sidebar_position: 9
 
 # Enabling and Compiling
 
+Luckily this process has been streamlined, only needing to add a single line to reference our plugin ID in
 
-## applications.c
-
-We first need to add a reference to the main function we defined in `box_mover.c`, so that it shows up in our applications menu.
-
-Let's add it right under the snake plugin.
-```c title="/applications/applications.c"
-    // Plugins
-    extern int32_t music_player_app(void* p);
-    extern int32_t snake_game_app(void* p);
-    extern int32_t box_mover_app(void* p);
+```
+.
+└── flipperzero-firmware/
+    └── applications/
+        └── meta/
+            └── application.fam
 ```
 
-Great! Just one more place in this file, filling out the metadata for our application.
+and add the file `application.fam` for our plugin metadata in our application folder
 
-
-```c title="/applications/applications.c"
-    #ifdef APP_SNAKE_GAME
-        {.app = snake_game_app,
-        .name = "Snake Game",
-        .stack_size = 1024,
-        .icon = &A_Plugins_14,
-        .flags = FlipperApplicationFlagDefault},
-    #endif
-
-    #ifdef APP_BOX_MOVER
-        {.app = box_mover_app, 
-        .name = "Box Mover", 
-        .stack_size = 1024, 
-        .icon = &A_Plugins_14,
-        .flags = FlipperApplicationFlagDefault},
-    #endif
+```
+.
+└── flipperzero-firmware/
+    └── applications/
+        └── box_mover/
+            └── application.fam
 ```
 
+## Application Metadata
 
-## applications.mk
+First we construct the metadata for our plugin
 
-To let the compiler know to compile our plugin, we need to add *two* entries to `applications.mk`.
-
-Once, at the top of the file:
-```txt title="/applications/applications.mk"
-# Plugins
-APP_MUSIC_PLAYER = 1
-APP_SNAKE_GAME = 1
-APP_BOX_MOVER = 1
+```title="/applications/box-mover/application.c"
+   App(
+    appid="box_mover_app",
+    name="Box Mover",
+    apptype=FlipperAppType.PLUGIN,
+    entry_point="box_mover_app",
+    cdefines=["APP_BOX_MOVER"],
+    requires=["gui"],
+    stack_size=1 * 1024,
+    icon="A_Plugins_14",
+    order=30,
+)
 ```
 
-and once more, below `APP_SNAKE_GAME`
-```txt title="/applications/applications.mk"
-APP_BOX_MOVER ?= 0
-ifeq ($(APP_BOX_MOVER), 1)
-CFLAGS		+= -DAPP_BOX_MOVER
-SRV_GUI		= 1
-endif
+The `appid` will be used to reference our plugin, and `entry_point` indicates our main function for execution when the plugin initiates.
+
+Let's finally add reference to our plugin below snake
+
+```title="/applications/meta/application.c
+...
+
+App(
+    appid="basic_plugins",
+    name="Basic applications for plug-in menu",
+    apptype=FlipperAppType.METAPACKAGE,
+    provides=[
+        "music_player",
+        "snake_game",
+        "box_mover_app",
+        "bt_hid",
+    ],
+)
 ```
+
+and with that, we are ready to compile and flash!
 
 # Compiling
 
