@@ -4,7 +4,7 @@ sidebar_position: 9
 
 # Enabling and Compiling
 
-Luckily this process has been streamlined, only needing to add a single line to reference our plugin ID in
+Luckily this process has been streamlined, and we only need add a single line to reference our plugin ID in
 
 ```
 .
@@ -14,15 +14,7 @@ Luckily this process has been streamlined, only needing to add a single line to 
             └── application.fam
 ```
 
-and add the file `application.fam` for our plugin metadata in our application folder
-
-```
-.
-└── flipperzero-firmware/
-    └── applications/
-        └── box_mover/
-            └── application.fam
-```
+and add the file `application.fam` for our plugin metadata in our application folder.
 
 ## Application Metadata
 
@@ -66,4 +58,4 @@ and with that, we are ready to compile and flash!
 
 # Compiling
 
-To compile your code, follow [these instructions in the setup](/docs/environment-setup/compiling)
+To compile your code, follow [these instructions in the previous section](/docs/environment-setup/compiling)

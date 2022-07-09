@@ -10,8 +10,7 @@ Instead of installing the toolchain manually, we are provided with a docker conf
 
 # Initializing the docker instance
 
-1. Ensure that your machine has access to `docker` and `docker-compose`.
-   - NB: On Windows, make sure Docker is running
+1. Ensure that your machine has access to `docker` and `docker-compose`. On Windows, make sure Docker is running
 2. Ensure you are in the root directory, with the *docker* folder.
 3. Run the following command to set up the container in detached mode.
    ```bash
@@ -38,7 +37,7 @@ You will need Python installed for access to packages required by the assets bui
       docker-compose exec dev ./fbt
    ```
 
-   Your output should look something like this in the end:
+   In the end, your output should look something like this:
    
    ```
          BIN     build/f7-firmware-D/firmware.bin
