@@ -4,62 +4,72 @@ sidebar_position: 9
 
 # Enabling and Compiling
 
+Luckily this process has been streamlined, and we only need add a single line to reference our plugin ID in
 
-## applications.c
+and add the file `application.fam` for our plugin metadata in our application folder.
 
-We first need to add a reference to the main function we defined in `box_mover.c`, so that it shows up in our applications menu.
+## Application Metadata
 
-Let's add it right under the snake plugin.
-```c title="/applications/applications.c"
-    // Plugins
-    extern int32_t music_player_app(void* p);
-    extern int32_t snake_game_app(void* p);
-    extern int32_t box_mover_app(void* p);
+First, let's create an individual metadata file for our plugin:
+
+```
+.
+└── flipperzero-firmware/
+    └── applications/
+        └── box-mover/
+            └── application.fam
 ```
 
-Great! Just one more place in this file, filling out the metadata for our application.
+Inside, we're going to add some metadata about our application. 
 
-
-```c title="/applications/applications.c"
-    #ifdef APP_SNAKE_GAME
-        {.app = snake_game_app,
-        .name = "Snake Game",
-        .stack_size = 1024,
-        .icon = &A_Plugins_14,
-        .flags = FlipperApplicationFlagDefault},
-    #endif
-
-    #ifdef APP_BOX_MOVER
-        {.app = box_mover_app, 
-        .name = "Box Mover", 
-        .stack_size = 1024, 
-        .icon = &A_Plugins_14,
-        .flags = FlipperApplicationFlagDefault},
-    #endif
+```c title="/applications/box-mover/application.fam"
+   App(
+    appid="box_mover_app",
+    name="Box Mover",
+    apptype=FlipperAppType.PLUGIN,
+    entry_point="box_mover_app",
+    cdefines=["APP_BOX_MOVER"],
+    requires=["gui"],
+    stack_size=1 * 1024,
+    icon="A_Plugins_14",
+    order=30,
+)
 ```
 
+This file provides metadata about our application. The `appid` will be used to reference our plugin, and `entry_point` indicates our main function for execution when the plugin initiates.
 
-## applications.mk
+## Linking to the applications list
 
-To let the compiler know to compile our plugin, we need to add *two* entries to `applications.mk`.
+To make our plugin accessible, we need to add an entry into the `/applications/meta/application.fam` file, with our plugin ID we created in the individual metadata.
 
-Once, at the top of the file:
-```txt title="/applications/applications.mk"
-# Plugins
-APP_MUSIC_PLAYER = 1
-APP_SNAKE_GAME = 1
-APP_BOX_MOVER = 1
+```
+.
+└── flipperzero-firmware/
+    └── applications/
+        └── meta/
+            └── application.fam
 ```
 
-and once more, below `APP_SNAKE_GAME`
-```txt title="/applications/applications.mk"
-APP_BOX_MOVER ?= 0
-ifeq ($(APP_BOX_MOVER), 1)
-CFLAGS		+= -DAPP_BOX_MOVER
-SRV_GUI		= 1
-endif
+Let's add it to the "basic_plugins" list of applications.
+
+```c title=/applications/meta/application.fam
+...
+
+App(
+    appid="basic_plugins",
+    name="Basic applications for plug-in menu",
+    apptype=FlipperAppType.METAPACKAGE,
+    provides=[
+        "music_player",
+        "snake_game",
+        "box_mover_app",
+        "bt_hid",
+    ],
+)
 ```
+
+and with that, we are ready to compile and flash!
 
 # Compiling
 
-To compile your code, follow [these instructions in the setup](/docs/environment-setup/compiling)
+To compile your code, follow [these instructions in the previous section](/docs/environment-setup/compiling)

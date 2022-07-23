@@ -163,7 +163,7 @@ The goal for our input callback is pretty simple. All we want it to do is:
 So, let's implement that with `osMessageQueue`.
 ```c
 // --snip--
-void input_callback(InputEvent* input, osMessageQueueId_t event_queue){
+void input_callback(InputEvent* input, void* ctx){
     BoxMover* box_mover = ctx;
     // Puts input onto event queue with priority 0, and waits until completion. 
     osMessageQueuePut(box_mover->event_queue, input, 0, osWaitForever); 

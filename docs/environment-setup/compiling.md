@@ -8,11 +8,9 @@ sidebar_position: 7
 
 Instead of installing the toolchain manually, we are provided with a docker configuration, so we can use that!
 
-
-
 # Initializing the docker instance
 
-1. Ensure that your machine has access to `docker` and `docker-compose`.
+1. Ensure that your machine has access to `docker` and `docker-compose`. On Windows, make sure Docker is running
 2. Ensure you are in the root directory, with the *docker* folder.
 3. Run the following command to set up the container in detached mode.
    ```bash
@@ -26,25 +24,27 @@ Instead of installing the toolchain manually, we are provided with a docker conf
 
 Let's compile this firmware and get an idea of what that process looks like!
 
-1. Run the following command:
+:::info
+You will need Python installed for access to packages required by the assets build scripts
+:::
+
+1. In the root directory, install Python packages required by assets build scripts by running
    ```bash
-      docker-compose exec dev make
+   pip3 install -r scripts/requirements.txt 
+   ```
+2. Begin building by running the following command:
+   ```bash
+      docker-compose exec dev ./fbt
    ```
 
-   :::info
-   If you run into an error referencing `mtar_end_data`, simply run the command again.
-   This is a known bug.
-   :::
-
-
-   Your output should look something like this in the end:
+   In the end, your output should look something like this:
    
    ```
-      DFU      .obj/f7-firmware/firmware.dfu
-      JSON     .obj/f7-firmware/firmware.json
-make[1]: Leaving directory '/project/firmware'
-2022-05-22 03:51:34,148 [INFO] Firmware binaries can be found at:
-      dist/f7
+         BIN     build/f7-firmware-D/firmware.bin
+   Building compilation database build/f7-firmware-D/compile_commands.json
+         DFU     build/f7-firmware-D/firmware.dfu
+   2022-07-09 09:05:21,711 [INFO] Firmware binaries can be found at:
+         dist/f7-D
    ```
 
 
@@ -58,5 +58,9 @@ brew bundle --verbose
 ``` -->
 
    
-### Your .dfu to flash is now located in `dist/f7/flipper-z-{target}-full-{suffix}.dfu`
+### Your .dfu to flash is now located in `dist/f7-D/flipper-z-{target}-full-{suffix}.dfu`
 
+:::info
+For more information on the flipper build tool, see firmware documentation:
+https://github.com/flipperdevices/flipperzero-firmware/blob/dev/documentation/fbt.md
+:::
