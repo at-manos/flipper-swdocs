@@ -6,21 +6,23 @@ sidebar_position: 9
 
 Luckily this process has been streamlined, and we only need add a single line to reference our plugin ID in
 
-```
-.
-└── flipperzero-firmware/
-    └── applications/
-        └── meta/
-            └── application.fam
-```
-
 and add the file `application.fam` for our plugin metadata in our application folder.
 
 ## Application Metadata
 
-First we construct the metadata for our plugin
+First, let's create an individual metadata file for our plugin:
 
-```title="/applications/box-mover/application.c"
+```
+.
+└── flipperzero-firmware/
+    └── applications/
+        └── box-mover/
+            └── application.fam
+```
+
+Inside, we're going to add some metadata about our application. 
+
+```c title="/applications/box-mover/application.fam"
    App(
     appid="box_mover_app",
     name="Box Mover",
@@ -34,11 +36,23 @@ First we construct the metadata for our plugin
 )
 ```
 
-The `appid` will be used to reference our plugin, and `entry_point` indicates our main function for execution when the plugin initiates.
+This file provides metadata about our application. The `appid` will be used to reference our plugin, and `entry_point` indicates our main function for execution when the plugin initiates.
 
-Let's finally add reference to our plugin below snake
+## Linking to the applications list
 
-```title="/applications/meta/application.c
+To make our plugin accessible, we need to add an entry into the `/applications/meta/application.fam` file, with our plugin ID we created in the individual metadata.
+
+```
+.
+└── flipperzero-firmware/
+    └── applications/
+        └── meta/
+            └── application.fam
+```
+
+Let's add it to the "basic_plugins" list of applications.
+
+```c title=/applications/meta/application.fam
 ...
 
 App(
