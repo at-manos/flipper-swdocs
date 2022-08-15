@@ -8,6 +8,10 @@ In order to take in input, we're going to be utilizing `osMessageQueue`, which, 
 
 For our `BoxMover` struct, all we need to do is declare an `osMessageQueueId_t`, which will be an ID for our queue, so we can reference it later.
 ```c
+// --snip--
+#include <stdlib.h>
+#include <input/input.h>
+// --snip--
 typedef struct {
     BoxMoverModel* model;
 
