@@ -60,16 +60,16 @@ Callbacks pose a problem because they run on a separate thread from our main app
 Let's fix that by adding a [mutex](https://en.wikipedia.org/wiki/Lock_\(computer_science\)) ID to our `BoxMover` struct. This will, in effect, allow it to be used as a blocking resource, only allowing one thread access at a time. We just need to make sure we acquire and release it whenever we deal with our struct.
 
 
-We'll do this by utilizing `osMutex`, an API layer that interfaces with the RTOS kernel. This is best current practice and [supersedes](https://github.com/flipperdevices/flipperzero-firmware/pull/1202#discussion_r867040160) `ValueMutex`, which you may see in some applications.
+We'll do this by utilizing `furi_mutex`, an core API of flipper firmware.
 
 
 Let's add an ID to our mutex in our `BoxMover` struct.
 ```c
 typedef struct {
     BoxMoverModel* model;
-    osMutexId_t* model_mutex;
+    FuriMutex* model_mutex;
 
-    osMessageQueueId_t event_queue;
+    FuriMessageQueue* event_queue;
 
     ViewPort* view_port;
     Gui* gui;
@@ -84,17 +84,17 @@ BoxMover* box_mover_alloc(){
     // --snip--
     instance->view_port = view_port_alloc();
     
-    instance->model_mutex = osMutexNew(NULL);
+    instance->model_mutex = furi_mutex_alloc(FuriMutexTypeNormal);
 
-    instance->gui = furi_record_open("gui");
+    instance->gui = furi_record_open(RECORD_GUI);
     // --snip--
 }
 
 void box_mover_free(BoxMover* instance){
     // --snip--
-    osMessageQueueDelete(instance->event_queue);
+    furi_message_queue_free(instance->event_queue);
 
-    osMutexDelete(instance->model_mutex);
+    furi_mutex_free(instance->model_mutex);
     // --snip--
 }
 ```
@@ -114,14 +114,14 @@ Our draw callback must conform to the following parameters:
 // --snip--
 void draw_callback(Canvas* canvas, void* ctx){
     BoxMover* box_mover = ctx;
-    furi_check(osMutexAcquire(box_mover->model_mutex, osWaitForever)==osOK);
+    furi_check(furi_mutex_acquire(box_mover->mutex, FuriWaitForever) == FuriStatusOk)
 
     canvas_draw_box(canvas, box_mover->model->x, box_mover->model->y, 4, 4); // Draw a box on the screen
 
-    osMutexRelease(box_mover->model_mutex);
+    furi_mutex_release(box_mover->model_mutex);
 }
 ```
-Here, we try to acquire our mutex for however long it takes (denoted by osWaitForever), and is wrapped in a `furi_check`, which will crash the program if there is an error with the mutex.
+Here, we try to acquire our mutex for however long it takes (denoted by FuriWaitForever), and is wrapped in a `furi_check`, which will crash the program if there is an error with the mutex.
 
 Once we have it, we know that only this thread has the mutex. Great! We can start using the variables now. 
 
@@ -140,7 +140,7 @@ BoxMover* box_mover_alloc(){
     instance->view_port = view_port_alloc();
     view_port_draw_callback_set(instance->view_port, draw_callback, instance);
     
-    instance->model_mutex = osMutexNew(NULL);
+    instance->model_mutex = furi_mutex_alloc(FuriMutexTypeNormal);
     // --snip-- 
 }
 ```
@@ -160,13 +160,14 @@ The goal for our input callback is pretty simple. All we want it to do is:
 - Read an input event
 - Place it on the message queue to be read later, in our main loop.
 
-So, let's implement that with `osMessageQueue`.
+So, let's implement that with `FuriMessageQueue`.
 ```c
 // --snip--
 void input_callback(InputEvent* input, void* ctx){
+    furi_assert(ctx); // Check if we send an argument to our input callback.
     BoxMover* box_mover = ctx;
     // Puts input onto event queue with priority 0, and waits until completion. 
-    osMessageQueuePut(box_mover->event_queue, input, 0, osWaitForever); 
+    furi_message_queue_put(box_mover->event_queue, input, FuriWaitForever); 
 }
 BoxMover* box_mover_alloc(){
     // --snip--

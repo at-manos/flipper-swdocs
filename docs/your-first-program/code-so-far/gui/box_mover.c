@@ -1,5 +1,6 @@
-#include <furi.h>
-#include <gui/gui.h>
+#include <furi.h> // Core API
+#include <furi_hal.h> // Hardware abstraction layer
+#include <gui/gui.h> // GUI (screen / keyboard) API
 #include <stdlib.h>
 
 
@@ -25,8 +26,8 @@ BoxMover* box_mover_alloc(){
 
     instance->view_port = view_port_alloc();
     
-    instance->gui = furi_record_open("gui");
-    gui_add_view_port(instance->gui, instance->view_port, GuiLayerFullScreen);
+    instance->gui = furi_record_open(RECORD_GUI);
+    gui_add_view_port(instance->gui, instance->view_port, GuiLayerFullscreen);
 
     return instance;
 }
@@ -35,7 +36,7 @@ void box_mover_free(BoxMover* instance){
     
     view_port_enabled_set(instance->view_port, false); // Disables our ViewPort
     gui_remove_view_port(instance->gui, instance->view_port); // Removes our ViewPort from the Gui 
-    furi_record_close("gui"); // Closes the gui record
+    furi_record_close(RECORD_GUI); // Closes the gui record
     view_port_free(instance->view_port); // Frees memory allocated by view_port_alloc
 
     free(instance->model);

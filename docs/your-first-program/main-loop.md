@@ -22,32 +22,30 @@ int32_t box_mover_app(void* p){
     InputEvent event;
     for(bool processing = true; processing;){
         // Pops a message off the queue and stores it in `event`.
-        // No message priority denoted by NULL, and 100 ticks of timeout.
-        osStatus_t status =  osMessageQueueGet(box_mover->event_queue, &event, NULL, 100);
-        furi_check(osMutexAcquire(box_mover->model_mutex, osWaitForever) == osOK);
-        if(status==osOK){
-            if(event.type==InputTypePress){
-                switch(event.key){
-                    case InputKeyUp:
-                        box_mover->model->y-=2;
-                        break;
-                    case InputKeyDown:
-                        box_mover->model->y+=2;
-                        break;
-                    case InputKeyLeft:
-                        box_mover->model->x-=2;
-                        break;
-                    case InputKeyRight:
-                        box_mover->model->x+=2;
-                        break;
-                    case InputKeyOk:
-                    case InputKeyBack:
-                        processing = false;
-                        break;
-                }
+        furi_check(furi_message_queue_get(box_mover->event_queue, &event, FuriWaitForever) == FuriStatusOk);
+        furi_mutex_acquire(box_mover->model_mutex, FuriWaitForever);
+        if(event.type==InputTypePress){
+            switch(event.key){
+                case InputKeyUp:
+                    box_mover->model->y-=2;
+                    break;
+                case InputKeyDown:
+                    box_mover->model->y+=2;
+                    break;
+                case InputKeyLeft:
+                    box_mover->model->x-=2;
+                    break;
+                case InputKeyRight:
+                    box_mover->model->x+=2;
+                    break;
+                case InputKeyBack:
+                    processing = false;
+                    break;
+                default:
+                    break;
             }
         }
-        osMutexRelease(box_mover->model_mutex);
+        furi_mutex_release(box_mover->model_mutex);
         view_port_update(box_mover->view_port); // signals our draw callback
     } 
     box_mover_free(box_mover);

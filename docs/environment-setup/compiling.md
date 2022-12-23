@@ -4,37 +4,13 @@ sidebar_position: 7
 
 # Compiling
 
-## Docker
-
-Instead of installing the toolchain manually, we are provided with a docker configuration, so we can use that!
-
-# Initializing the docker instance
-
-1. Ensure that your machine has access to `docker` and `docker-compose`. On Windows, make sure Docker is running
-2. Ensure you are in the root directory, with the *docker* folder.
-3. Run the following command to set up the container in detached mode.
-   ```bash
-        docker-compose up -d
-   ```
-   <!-- *This will set up the container in detached mode.* -->
-
-**You now have the docker container running in the background!**
-
 ## Compiling for the first time
 
 Let's compile this firmware and get an idea of what that process looks like!
 
-:::info
-You will need Python installed for access to packages required by the assets build scripts
-:::
-
-1. In the root directory, install Python packages required by assets build scripts by running
+1. In the root directory, run the main script
    ```bash
-   pip3 install -r scripts/requirements.txt 
-   ```
-2. Begin building by running the following command:
-   ```bash
-      docker-compose exec dev ./fbt
+      ./fbt
    ```
 
    In the end, your output should look something like this:

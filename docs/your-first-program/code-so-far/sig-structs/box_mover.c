@@ -1,4 +1,5 @@
-#include <furi.h>
+#include <furi.h> // Core API
+#include <furi_hal.h> // Hardware abstraction layer
 #include <stdlib.h>
 
 

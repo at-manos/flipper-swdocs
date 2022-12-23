@@ -1,6 +1,7 @@
-#include <furi.h>
-#include <gui/gui.h>
-#include <input/input.h>
+#include <furi.h> // Core API
+#include <furi_hal.h> // Hardware abstraction layer
+#include <gui/gui.h> // GUI (screen / keyboard) API
+#include <input/input.h> // GUI Input extensions
 #include <stdlib.h>
 
 
@@ -12,7 +13,7 @@ typedef struct {
 typedef struct {
     BoxMoverModel* model;
 
-    osMessageQueueId_t event_queue;
+    FuriMessageQueue* event_queue;
 
     ViewPort* view_port;
     Gui* gui;
@@ -27,9 +28,10 @@ BoxMover* box_mover_alloc(){
 
     instance->view_port = view_port_alloc();
     
-    instance->gui = furi_record_open("gui");
+    instance->gui = furi_record_open(RECORD_GUI);
+    gui_add_view_port(instance->gui, instance->view_port, GuiLayerFullscreen);
 
-    instance->event_queue = osMessageQueueNew(8, sizeof(InputEvent), NULL);
+    instance->event_queue = furi_message_queue_alloc(8, sizeof(InputEvent));
     
     return instance;
 }
@@ -38,10 +40,10 @@ void box_mover_free(BoxMover* instance){
     
     view_port_enabled_set(instance->view_port, false); // Disables our ViewPort
     gui_remove_view_port(instance->gui, view_port); // Removes our ViewPort from the Gui 
-    furi_record_close("gui"); // Closes the gui record
+    furi_record_close(RECORD_GUI); // Closes the gui record
     view_port_free(instance->view_port); // Frees memory allocated by view_port_alloc
 
-    osMessageQueueDelete(instance->event_queue);
+    furi_message_queue_free(instance->event_queue);
 
     free(instance->model);
     free(instance);

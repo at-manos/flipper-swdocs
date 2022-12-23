@@ -1,6 +1,7 @@
-#include <furi.h>
-#include <gui/gui.h>
-#include <input/input.h>
+#include <furi.h> // Core API
+#include <furi_hal.h> // Hardware abstraction layer
+#include <gui/gui.h> // GUI (screen / keyboard) API
+#include <input/input.h> // GUI Input extensions
 #include <stdlib.h>
 
 
@@ -11,9 +12,9 @@ typedef struct {
 
 typedef struct {
     BoxMoverModel* model;
-    osMutexId_t* model_mutex;
+    FuriMutex* model_mutex;
 
-    osMessageQueueId_t event_queue;
+    FuriMessageQueue* event_queue;
 
     ViewPort* view_port;
     Gui* gui;
@@ -22,19 +23,19 @@ typedef struct {
 
 void draw_callback(Canvas* canvas, void* ctx){
     BoxMover* box_mover = ctx;
-    furi_check(osMutexAcquire(box_mover->model_mutex, osWaitForever)==osOK);
+    furi_check(furi_mutex_acquire(box_mover->mutex, FuriWaitForever) == FuriStatusOk);
 
     canvas_draw_box(canvas, box_mover->model->x, box_mover->model->y, 4, 4); // Draw a box on the screen at x,y
 
-    osMutexRelease(box_mover->model_mutex);
+    furi_mutex_release(box_mover->model_mutex);
 }
 
 void input_callback(InputEvent* input, void* ctx){
+    furi_assert(ctx);
     BoxMover* box_mover = ctx;
     // Puts input onto event queue with priority 0, and waits until completion. 
-    osMessageQueuePut(box_mover->event_queue, input, 0, osWaitForever); 
+    furi_message_queue_put(box_mover->event_queue, input_event, FuriWaitForever);
 }
-
 
 
 BoxMover* box_mover_alloc(){
@@ -47,13 +48,13 @@ BoxMover* box_mover_alloc(){
     view_port_draw_callback_set(instance->view_port, draw_callback, instance);
     view_port_input_callback_set(instance->view_port, input_callback, instance);
     
-    instance->model_mutex = osMutexNew(NULL);
+    instance->model_mutex = furi_mutex_alloc(FuriMutexTypeNormal);
 
 
-    instance->gui = furi_record_open("gui");
-    gui_add_view_port(instance->gui, instance->view_port, GuiLayerFullScreen);
+    instance->gui = furi_record_open(RECORD_GUI);
+    gui_add_view_port(instance->gui, instance->view_port, GuiLayerFullscreen);
 
-    instance->event_queue = osMessageQueueNew(8, sizeof(InputEvent), NULL);
+    instance->event_queue = furi_message_queue_alloc(8, sizeof(InputEvent));
 
     return instance;
 }
@@ -62,11 +63,11 @@ void box_mover_free(BoxMover* instance){
     
     view_port_enabled_set(instance->view_port, false); // Disables our ViewPort
     gui_remove_view_port(instance->gui, view_port); // Removes our ViewPort from the Gui 
-    furi_record_close("gui"); // Closes the gui record
+    furi_record_close(RECORD_GUI); // Closes the gui record
     view_port_free(instance->view_port); // Frees memory allocated by view_port_alloc
 
-    osMessageQueueDelete(instance->event_queue);
-    osMutexDelete(instance->model_mutex);
+    furi_message_queue_free(instance->event_queue);
+    furi_mutex_free(instance->model_mutex);
 
     free(instance->model);
     free(instance);
