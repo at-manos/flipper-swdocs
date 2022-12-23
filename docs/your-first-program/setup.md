@@ -16,7 +16,7 @@ _Your file structure should look like this_:
 ```
 .
 └── flipperzero-firmware/
-    └── applications/
+    └── applications_user/
         └── box_mover/
             └── box_mover.c
 ```
